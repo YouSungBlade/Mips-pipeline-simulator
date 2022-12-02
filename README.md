@@ -24,4 +24,4 @@ MIPS and/or/add/sub/slt/lw/sw/beq/j 명령어를 수행하는 5단계 파이프�
     - visulaization 화면에는 클락 사이클을 0부터 카운트하여 몇번째 사이클인지 보여주는 화면이 포함되어야 함.  
     - 프로그램 소스는 github 에서 download 받아 compile 하여 수행할 수 있는 형태로 공개되어야 함  
     - web service 형태로 구현하는 것도 가능, 이 경우에도 소스가 공개되어야 함  
-    - github repository 에는 본 프로젝트에 대한 설명 (보고서를 대신함, 소스 코드 설명, 설치, 사용법 설명) 이 포함되어야 함  
+    - github repository 에는 본 프로젝트에 대한 설명 (보고서를 대신함, 소스 코드 설명, 설치, 사용법 설명) 이 포함되어야 함      
