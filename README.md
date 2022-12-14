@@ -1,5 +1,5 @@
 # < MIPS PIPELINE REGISTER SIMULATION REPORT > 
-(main image)
+![mainScreen](https://user-images.githubusercontent.com/103012667/207578677-d2555598-2fe3-4405-8a2e-bb9999aedbf4.png)
 
 # **팀원**
 
@@ -180,7 +180,7 @@ or $8, $2, $6
 add $9, $4, $2
 slt $1, $6, $7
 ```
-
+![image](https://user-images.githubusercontent.com/103012667/207578686-094d6042-a4fe-4984-910f-d7700d2bb7c8.png)
 # Main_Handler
 - pygame screen (1920*1080) 생성
 - test.s 소스코드에서 data memory 초기화 및 instrution assemble
