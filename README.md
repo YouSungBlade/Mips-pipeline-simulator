@@ -1,4 +1,4 @@
-# < MIPS PIPELINE SIMULATION > 
+# < MIPS PIPELINE SIMULATOR > 
 ![mainScreen](https://user-images.githubusercontent.com/103012667/207578677-d2555598-2fe3-4405-8a2e-bb9999aedbf4.png)
 
 # **팀원**
