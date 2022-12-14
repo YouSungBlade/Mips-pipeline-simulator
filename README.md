@@ -5,72 +5,41 @@
 
 20191582 김혜성, 20191588 마준영, 20191591 박근우
 
-# **실행환경, 실행방법**
+# **기능** 
+- .s파일을 assemble하여 simulator에 적용
+- directives 지원
+- 사이클 단위 각 Component의 입력 값과 출력값 확인
+- hazard detection과 forwarding
+- 지원하는 명령어 : add, sub, and, or, lw, sw, beq, j
 
-실행환경 : Python (Version : 3.10), Visual Studio Code, Python Modul pygame,
-PyQt5  
-실행방법 :   
+# **실행**
+### 실행환경
+Python (Version : 3.10), Visual Studio Code
+### 라이브러리
+pygame, PyQt5
+### 실행 방법
 1. github 주소에서 zipfile을 자신이 지정한 local에 저장  
 
-2. file 폴더의 gitbash 혹은 명령 프로그램 실행
-
-3. 아래의 명령어로 다운로드
+2. 아래의 명령어로 다운로드
 ```console
 pip install PyQt5
 ```
 ```console
 pip install pygame
 ```
-
-4. ~.s 파일에 실행시킬 코드 작성
+3. 실행시킬 어셈블리 소스 코드(.s) 작성
 
 5. main_handler.py 실행
+```console
+python main_handler.py
+```
 
 6. 실행 시킬 코드 선택
 
-
-# **필수 기능**
-
-- MIPS assembler 포함 (open source 사용 가능)
-
-- pipeline visualization : 프로그램을 cycle 단위로 수행하고 정지된 상태에서  회로 상의 모든 component 입출력 값을 시각화 
-
-- data/branch hazard 해결 ( j 명령의 hazard 도 해결해야 함)
-
-- assemble 된 프로그램은 0x00400024 번지에 load 되고 PC 의 값은 이 값으로 초기화되어 수행이 시작됨.
-
-- sp 는 0x7ffffe40, gp 는 0x10008000 로 초기화
-
-- data memory 는 0으로 초기화하고 .data directive 의 내용에 따라 초기화
-
-- memory 에는 OS code 가 없어도 됨
-
-- memory 의 내용은 전체를 한꺼번에 보여줄 수 없으므로 적절한 방법으로 보여줄 것
-
-- 프로그램의 종료 시점은 따로 정해지지 않음.                   
-
-- exception handling 과 memory hierarchy 는 구현하지 않아도 됨
-
-- visulaization 화면에는 클락 사이클을 0부터 카운트하여 몇번째 사이클인지 보여주는 화면이 포함되어야 함. 
-
-- 프로그램 소스는 github 에서 download 받아 compile 하여 수행할 수 있는 형태로 공개되어야 함
-
-- web service 형태로 구현하는 것도 가능, 이 경우에도 소스가 공개되어야 함
-
-- github repository 에는 본 프로젝트에 대한 설명 (보고서를 대신함, 소스 코드 설명, 설치, 사용법 설명) 이 포함
-
-# **기능** 
-- .s파일을 assemble하여 simulator에 적용
-- 사이클 단위 각 Component의 입력 값과 출력값 확인
-- data hazard, load use hazard, branch hazard 지원
-- forwarding
-- 지원하는 명령어 : add, sub, and, or, lw, sw, beq, j
-
-# **실행 종료 방법**
-"esc" key 를 누른다
-
-# **다음 Cycle 진행 방법**
-오른쪽 방향키를 누르면 1 cycle 진행
+### 사용법
+- 오른쪽 방향키를 눌러 1 cycle 진행
+- 마우스 포인터를 올려 Component의 값 확인
+- Esc를 눌러 프로그램 종료
 
 
 # **Testcase**
@@ -299,21 +268,22 @@ PC의 상위 4비트와 left shift된 28 비트를 이어붙인다. jump instruc
 - ### SignExtension
 - calculate()
 - 인풋의 16번째 비트가 1일 때
-    MSB 앞에 16비트를 모두 1을 이어붙여 1 word 단위로 SignExtension
+    MSB 앞에 16비트를 모두 1로 이어붙여 1 word 단위로 SignExtension
 - 인풋의 16번째 비트가 0일 때
     MSB 앞에 16비트를 모두 0으로 이어붙여 1 word 단위로 SignExtension
 ### InteractiveRoundRect
-원 부모 클래스
+모서리가 둥근 사각형 부모 클래스
 - ### SignalUnit
+아래 Unit들의 부모 클래스
 - ### ALUControlUnit
 멤버변수인 op와 funct field의 값을 받아 위 ALU Control 진리표에 해당하는 Operation값을 Output에 저장한다.
 - ### ControlUnit
-operation Field 6개의 비트를 받아 위 진리표 값에 알맞게 ControlSignal을 설정하여 output에 저장한다.
+Instruction을 받아 진리표 값에 알맞게 Control Signal을 설정하여 output에 저장한다.
 - ### ExForwarding
-alu의 input의 두 레지스터를 연산하는 과정에서 Dependancy가 발생하면 forwarding을 결정
+alu의 input의 두 레지스터를 연산하는 과정에서 Dependancy에 따라 forwarding을 결정
 forwanrdA와 forwardB가 있음
 - ### IdForwarding
-beq instruction을 위해 두 레지스터의 값이 같은지 비교하는 과정에서 Dependancy가 발생하면 forwarding을 결정
+beq instruction을 위해 두 레지스터의 값이 같은지 비교하는 과정에서 Dependancy에 따라 forwarding을 결정
 forwardA와 forwardB가 있음
 - ### HazardDetection
 ##### Data Hazard for Branch
@@ -329,6 +299,7 @@ beq가 ID stage에서 계산되면서 생기는 특수한 Hazard
 2. lw 다음 beq
     기존의 load use hazard와 동일하게 처리할 수 있다.
 3. lw 다다음 beq
+    hazard detection이 EX/MEM Pipeline Register의 값도 확인해야 한다.
     ```python
     (hazard_detection의 소스코드 중)
     elif self.inputs['Branch']['value'] and self.inputs['EX/MEM.MemRead']['value'] and \
@@ -337,18 +308,11 @@ beq가 ID stage에서 계산되면서 생기는 특수한 Hazard
             value = 0
     ```
 ### InteractiveTrapezoid
-다각형 부모 클래스
+사다리꼴 부모 클래스
 - ### SimpleAdder
 alu의 부모 클래스
 - ### ALU
 alu op에 해당하는 산술 연산을 수행한다.
-### ShowData
-- Register Memory위에 마우스가 올라가면 32개의 Register의 값들을 화면에 출력한다.
-- Data Memory위에 마우스가 올라가면 User Data segment를 spim 형식에 맞게 출력한다.
-- 메모리를 16 단위 즉, 4 word 단위로 읽어 little endian으로 출력하고, 오른쪽에는 text로 변환하여 출력한다.
-### ShowProgress
-- 현재 클락 사이클과 각 스테이지에서 실행되고 있는 instruction을 출력한다.
-- 실행중 instruction이 필요시에 Nop로 바뀐다.
 ### LogicGate
 - ### AND Gate
 - and 연산 수행
@@ -357,16 +321,15 @@ alu op에 해당하는 산술 연산을 수행한다.
 ### Multiplexer
 - control signal에 해당하는 순서에 맞게 output을 결정한다.
 - input이 두 개일 때 control signal은 1bit 세 개일 때 2bit
-
-##### Assembler
-지원하는 명령어 : .data, .text, .asciiz, .ascii, .space, .byte, .half, .word
-.s file을 assemble하여 그 결과인 Instruction들과 Data들을 Instruction Memory와 Data Memory에 전달한다.
-word의 경우 4byte 단위로 align되고, Little Endian 방식으로 저장된다.
-First pass에서 Label의 주소를 결정하고, Second pass에서 데이터를 저장하고 기계어로 번역한다.
-
-##### File Select
-PyQt5 라이브러리의 QFileDialog를 사용했다.
-사용자가 선택한 어셈블리 소스 코드로 Assembler가 작업을 시작한다.
+# Other Part
+### Assembler
+- 지원하는 지시자 : .data, .text, .asciiz, .ascii, .space, .byte, .half, .word  
+- .s file을 assemble하여 그 결과인 Instruction들과 Data들을 Instruction Memory와 Data Memory에 전달한다.  
+- word의 경우 4byte 단위로 align되고, Little Endian 방식으로 저장된다.  
+- First pass에서 Label의 주소를 결정하고, Second pass에서 데이터를 저장하고 기계어로 번역한다.  
+### File Select
+- PyQt5 라이브러리의 QFileDialog를 사용했다.
+- 사용자가 선택한 어셈블리 소스 코드로 Assembler가 작업을 시작한다.
 ```python
 app = QApplication([])
 filename, _ = QFileDialog.getOpenFileName(
@@ -374,3 +337,10 @@ filename, _ = QFileDialog.getOpenFileName(
     "Open File", "","Assembly Source Code (*.s)",
     )
 ```
+### ShowData
+- Register Memory위에 마우스가 올라가면 32개의 Register의 값들을 화면에 출력한다.
+- Data Memory위에 마우스가 올라가면 User Data segment를 spim 형식에 맞게 출력한다.
+- 메모리를 16 단위 즉, 4 word 단위로 읽어 little endian으로 출력하고, 오른쪽에는 text로 변환하여 출력한다.
+### ShowProgress
+- 현재 클락 사이클과 각 스테이지에서 실행되고 있는 instruction을 출력한다.
+- 실행중 instruction이 필요시에 Nop로 바뀐다.
