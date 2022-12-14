@@ -14,7 +14,13 @@ PyQt5
 
 2. file 폴더의 gitbash 혹은 명령 프로그램 실행
 
-3. pip install pygame 명령어 입력
+3. 아래의 명령어로 다운로드
+```console
+pip install PyQt5
+```
+```console
+pip install pygame
+```
 
 4. ~.s 파일에 실행시킬 코드 작성
 
