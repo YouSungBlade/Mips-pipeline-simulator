@@ -1,5 +1,5 @@
-# < MIPS PIPELINE REGISTER SIMULATION REPORT >
-![mainScreen](https://user-images.githubusercontent.com/103012667/207578677-d2555598-2fe3-4405-8a2e-bb9999aedbf4.png)
+# < MIPS PIPELINE REGISTER SIMULATION REPORT > 
+(main image)
 
 # **팀원**
 
@@ -67,7 +67,7 @@
 
 # **Testcase**
 
-(1)  stall 2, branch
+(1)
 ```
 .data 701
 .word 0x12345678, 0x87654321
@@ -86,7 +86,7 @@ and $t1, $t3, $t8
 L: or $s1, $s2, $s3
 slt $s1, $s2, $s3  
 ```
-(2) stall 
+(2)
 ```
 .data  
 .text  
@@ -99,7 +99,7 @@ add $8, $0, $9
 
 L: and $2, $8, $9
 ```
-(3) stall
+(3)
 ```
 .data
 .text
@@ -111,7 +111,7 @@ or   $7, $2, $6
 and $2, $8, $
 ```
 
-(4) harzard
+(4)
 ```
 .data
 .text
@@ -122,7 +122,7 @@ slt  $6, $2, $5
 or   $7, $2, $6
 and $2, $8, $
 ```
-(5) stall 2 rof
+(5) 
 ```
 .data
 .text
@@ -131,7 +131,7 @@ L: lw $s1, 0($gp)
 beq $s1, $s2, L
 add $s1, $s2, $s1
 ```
-(6) branch stall 1
+(6) 
 ```
 .data 701
 .word 0x12345678, 0x87654321
@@ -148,7 +148,7 @@ L: add $t1, $t2, $t3
 sub $t4, $t5, $t6
 and $t5, $t7, $t8
 ```
-(7) No Forwarding
+(7) 
 ```
 .data
 .text
@@ -159,7 +159,7 @@ or $13, $6, $2
 add $14, $2, $2
 sw $15, 100($2)
 ```
-(8) Double hazard
+(8)
 ```
 .data
 .text
@@ -169,7 +169,7 @@ and $4, $2, $5
 or $4, $4, $2
 add $9, $4, $2
 ```
-(9) Load-Use Data Hazard
+(9)
 ```
 .data
 .text
@@ -180,7 +180,6 @@ or $8, $2, $6
 add $9, $4, $2
 slt $1, $6, $7
 ```
-![image](https://user-images.githubusercontent.com/103012667/207578686-094d6042-a4fe-4984-910f-d7700d2bb7c8.png)
 
 # Main_Handler
 - pygame screen (1920*1080) 생성
