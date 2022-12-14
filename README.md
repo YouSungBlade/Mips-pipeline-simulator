@@ -20,7 +20,7 @@ pygame, PyQt5
 ### 실행 방법
 1. github 주소에서 zipfile을 자신이 지정한 local에 저장  
 
-2. 아래의 명령어로 다운로드
+2. 아래의 명령어로 필요한 라이브러리를 다운로드
 ```console
 pip install PyQt5
 ```
