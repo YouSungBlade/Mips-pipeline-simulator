@@ -7,18 +7,20 @@
 
 # **실행환경, 실행방법**
 
-실행환경 : Python (Version : 3.10), Visual Studio Code, Python Modul pygame
-
+실행환경 : Python (Version : 3.10), Visual Studio Code, Python Modul pygame,
+PyQt5  
 실행방법 :   
-1.  github 주소에서 zipfile을 자신이 지정한 local에 저장  
+1. github 주소에서 zipfile을 자신이 지정한 local에 저장  
 
-2.  file 폴더의 gitbash 혹은 명령 프로그램 실행
+2. file 폴더의 gitbash 혹은 명령 프로그램 실행
 
-3.  pip install pygame 명령어 입력
+3. pip install pygame 명령어 입력
 
-4. test.s 파일에 실행시킬 코드 작성
+4. ~.s 파일에 실행시킬 코드 작성
 
 5. main_handler.py 실행
+
+6. 실행 시킬 코드 선택
 
 
 # **필수 기능**
@@ -148,38 +150,87 @@ L: add $t1, $t2, $t3
 sub $t4, $t5, $t6
 and $t5, $t7, $t8
 ```
-(7) 
+(7) No Forwarding
 ```
+.data 0x10008000
+.word 0x00000001, 0x00000009
+.text
+main:
+lw $1, 0($gp)
+lw $2, 0($gp)
+add $14, $1, $2
+sw $14, 100($2)
+```
+(8) Double hazard
+```
+.data 0x10008000
+.word 0x00000005, 0xffffffff
+.text
+main:
+lw $2, 0($gp)
+lw $3, 4($gp)
+add $2, $3, $3
+or $2, $3, $5
+add $3, $2, $3
+```
+(9) Load-Use Data Hazard
+```
+.data 0x10008000
+.word 0x0000000a, 0x00000003
+.text
+main:
+lw $1, 0($gp)
+lw $2, 4($gp)
+
+slt $10, $1, $2
+```
+(10) MEM hazard
+```
+.data 0x10008000
+.word 0x00000002, 0x00000001, 0x0000000d
+
 .data
 .text
 main:
+lw $2, 0($gp)
+lw $3, 4($gp)
+lw $12, 8($gp)
 sub $2, $1, $3
-and $12, $2, $5
-or $13, $6, $2
-add $14, $2, $2
-sw $15, 100($2)
+and $12, $2, $3
+or $1, $1, $2
+sw $2, 100($gp)
 ```
-(8)
+(11) Stall for Branch Taken
 ```
-.data
+.data 0x10008000
+.word 0x00000002, 0x00000001
+
 .text
 main:
-sub $2, $1, $3
-and $4, $2, $5
-or $4, $4, $2
-add $9, $4, $2
+lw $2, 0($gp)
+lw $1, 4($gp)
+sub $2, $2, $1
+beq $1, $2, m
+add $2, $2, $1
+m:
+sub $2, $2, $1
 ```
-(9)
+(12) Stall for J
+
 ```
-.data
+.data 0x10008000
+.word 0x00000002, 0x00000001
+
 .text
 main:
-lw $2, 20($1)
-and $4, $2, $5
-or $8, $2, $6
-add $9, $4, $2
-slt $1, $6, $7
+lw $2, 0($gp)
+lw $1, 4($gp)
+j m
+add $2, $2, $1
+m:
+sub $2, $2, $1
 ```
+
 ![image](https://user-images.githubusercontent.com/103012667/207578686-094d6042-a4fe-4984-910f-d7700d2bb7c8.png)
 # Main_Handler
 - pygame screen (1920*1080) 생성
@@ -306,3 +357,14 @@ alu op에 해당하는 산술 연산을 수행한다.
 .s file을 assemble하여 그 결과인 Instruction들과 Data들을 Instruction Memory와 Data Memory에 전달한다.
 word의 경우 4byte 단위로 align되고, Little Endian 방식으로 저장된다.
 First pass에서 Label의 주소를 결정하고, Second pass에서 데이터를 저장하고 기계어로 번역한다.
+
+##### File Select
+PyQt5 라이브러리의 QFileDialog를 사용했다.
+사용자가 선택한 어셈블리 소스 코드로 Assembler가 작업을 시작한다.
+```python
+app = QApplication([])
+filename, _ = QFileDialog.getOpenFileName(
+    None,
+    "Open File", "","Assembly Source Code (*.s)",
+    )
+```
