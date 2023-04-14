@@ -520,6 +520,7 @@ def next_cycle():
     branch_mux.set_value(0, adder_pc.get_value())
     branch_mux.calculate()
     IFID_pr.set_value('NextPC', adder_pc.get_value())
+    pc_mux.set_control_value(control.get_value('Jump'))
     pc_mux.set_value(1, branch_mux.get_value())
     pc_mux.set_value(0, concat.get_value())
     pc_mux.calculate()
